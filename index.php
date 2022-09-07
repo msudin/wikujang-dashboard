@@ -1,19 +1,9 @@
-<?php 
-  require_once "dbcon/config.php"; 
-
-  session_start();
-  if(isset($_SESSION['user_id'])){
-    $admin_redirect_url ="admin/index.php";
-    echo "<script>window.location ='$admin_redirect_url'</script>";  
-  }
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>SI-SPP | Log in</title>
+  <title>WIKUJANG | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -26,13 +16,6 @@
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="plugins/iCheck/square/blue.css">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
@@ -112,35 +95,47 @@
         display: none;
     }
     </style>
-
 </head>
 
+<!-- Error Message -->
 <?php
-if(isset($_GET['message'])){
-    if($_GET['message']=="error"){
+  if(isset($_GET['message'])){
+    $message = $_GET['message'];
+      if ($message == "error"){
         echo '<div class="box-body"><div class="alert alert-warning alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <h4><i class="icon fa fa-warning"></i> Alert!</h4>
-                Username dan Password Salah, Silahkan Coba Kembali !
-              </div></div>';
-              session_unset(); 
-    }
-}
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h4><i class="icon fa fa-warning"></i>Error !</h4>
+        Username dan Password Salah, Silahkan Coba Kembali !
+        </div></div>';
+      } else if ($message == "method") {
+        echo '<div class="box-body"><div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h4><i class="icon fa fa-warning"></i>Error !</h4>
+        Akses Tidak Diizinkan, Silahkan Coba Kembali !
+        </div></div>';
+      } else if ($message == "usernotfound") {
+        echo '<div class="box-body"><div class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h4><i class="icon fa fa-warning"></i>Error !</h4>
+        User Tidak Ditemukan, Silahkan Coba Kembali !
+        </div></div>';
+      }
+      session_unset();
+  }
 ?>
+
 <body class="hold-transition login-page"onload="myFunction()" style="margin:0;">
     <div id="loader"></div>
     <div style="display:none;" id="myDiv" class="animate-bottom">
 <!-- /Loading Page -->
-
 <div class="login-box">
   <div class="login-logo">
-    <a href="index.php"><b>SI-</b>SPP</a>
+    <a href="index.php"><b>WIKUJANG</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
-
-    <form action="dbcon/check-login.php" method="post">
+    <p class="login-box-msg">Silakan login terlebih dahulu</p>
+    <form action="usecase/login_uc.php" method="post">
       <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Username" name="username">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -150,12 +145,8 @@ if(isset($_GET['message'])){
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
-        <div class="col-xs-8">
-        <button type="submit" class="btn btn-primary btn-block btn-flat" name="submitLogin" value="submitLogin">Login</button>
-        </div>
-        <!-- /.col -->
-        <div class="col-xs-4">
-        <button type="submit" class="btn btn-success btn-block btn-flat" name="guestLogin" value="guestLogin">Guest</button>
+        <div class="col-xs-12">
+        <button type="submit" class="btn btn-primary btn-block btn-flat" name="submitLogin" value="submitLogin">Masuk</button>
         </div>
         <!-- /.col -->
       </div>
@@ -182,10 +173,10 @@ if(isset($_GET['message'])){
   });
 </script>
 
+<!-- Loading Page -->
 <script>
-  // Loading Page
   var myVar;
-
+  
   function myFunction() {
       myVar = setTimeout(showPage, 500);
 
@@ -196,6 +187,5 @@ if(isset($_GET['message'])){
       document.getElementById("myDiv").style.display = "block";
   }
 </script>
-
 </body>
 </html>
