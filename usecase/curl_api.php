@@ -1,5 +1,3 @@
-<!-- referrence : https://weichie.com/blog/curl-api-calls-with-php/ -->
-
 <?php
 include_once('../helper/import.php');
 
