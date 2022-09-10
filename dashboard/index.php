@@ -211,8 +211,8 @@ function loadBody() {
                                             <thead>
                                             <tr>
                                                 <th>No </th>
-                                                <th>ID </th>
                                                 <th>Nama</th>
+                                                <th>Warung</th>
                                                 <th>Status</th>
                                                 <th>Tanggal Dibuat</th>
                                             </tr>
@@ -226,8 +226,16 @@ function loadBody() {
                                                 ?>
                                                 <tr>
                                                 <td><a href=""><?=$no?></a></td>
-                                                <td><?=$data->id?></td>
                                                 <td><?=$data->name; ?></td>
+                                                <td>
+                                                    <?php
+                                                        if (empty($data->warung->name)) {
+                                                            echo "Administrator";
+                                                        } else {
+                                                            echo $data->warung->name;
+                                                        }
+                                                    ?>
+                                                </td>
                                                 <td>
                                                     <span class="<?=adsStatusColor($data->status)?>"><?=adsStatus($data->status)?></span>
                                                 </td>

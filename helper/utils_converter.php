@@ -11,7 +11,7 @@ function adsStatus($status) {
         return "Tidak Aktif";
     } else if ($status == "active") {
         return "Aktif"; 
-    } else if ($status == "waiting_payment") {
+    } else if ($status == "waiting_payment" || $status == "waiting payment" || $status == "waitingpayment") {
         return "Menunggu Pembayaran";  
     } else {
         return "Undefined Status";
@@ -23,7 +23,7 @@ function adsStatusColor($status) {
         return "label label-danger";
     } else if ($status == "active") {
         return "label label-success"; 
-    } else if ($status == "waiting_payment") {
+    } else if ($status == "waiting_payment" || $status == "waiting payment" || $status == "waitingpayment") {
         return "label label-warning";  
     } else {
         return "label label-default";
