@@ -247,7 +247,7 @@ function loadBody() {
                                         <a href="#" style="color: #FFFFFF">
                                             <div class="info-box-content">
                                                 <span class="info-box-text">Menunggu Pembayaran</span>
-                                                <span class="info-box-number"><?=count(getAds(NULL, 'waiting payment'))?></span>
+                                                <span class="info-box-number"><?=count(getAds(NULL, "waiting payment"))?></span>
                                                 <div class="progress">
                                                     <div class="progress-bar" style="width: 100%">
                                                     </div>
