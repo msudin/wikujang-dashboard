@@ -29,14 +29,9 @@ function callAPI($method, $url, $data){
    $curl_errno = curl_errno($curl);
    $curl_error = curl_error($curl);
    if ($curl_errno > 0) {
-      die("Connection Failure :($curl_errno) -> $curl_error\n");
+      die("Connection Failure : ($curl_errno) $curl_error\n");
    } 
    curl_close($curl);
-
-   // if (!$result){
-   //    die("Connection Failure");
-   // }
-
 
    $response = json_decode($result);
    $resultData = new stdClass();
