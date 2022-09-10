@@ -16,7 +16,6 @@ if (isset($_GET['action'])) {
     $action = $_GET['action'];
     if ($action == "deleteCategoryMenu") {
         $id = $_GET['id'];
-        echo "masuk proses".$id;
         deleteCategoryMenu($id);
     } else {
         ob_start(); 
