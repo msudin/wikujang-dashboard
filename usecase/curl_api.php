@@ -22,11 +22,16 @@ function callAPI($method, $url, $data){
    // OPTIONS:
    curl_setopt($curl, CURLOPT_URL, $url);
    curl_setopt($ch, CURLOPT_TIMEOUT, 0);
-   curl_setopt($ch, CURLOPT_TIMEOUT, 400);
+   curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
+    curl_setopt($ch, CURLOPT_TIMEOUT_MS, 800)
    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
    // EXECUTE:
    $result = curl_exec($curl);
+   $curl_errno = curl_errno($curl);
+   if ($curl_errno > 0) {
+      echo "cURL Error ($curl_errno): $curl_error\n";
+   } 
    if (!$result){
       die("Connection Failure");
    }
