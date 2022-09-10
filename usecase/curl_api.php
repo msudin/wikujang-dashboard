@@ -21,7 +21,9 @@ function callAPI($method, $url, $data){
 
    // OPTIONS:
    curl_setopt($curl, CURLOPT_URL, $url);
-   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+   curl_setopt($ch, CURLOPT_TIMEOUT, 0);
+   curl_setopt($ch, CURLOPT_TIMEOUT, 400);
+   curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
    // EXECUTE:
    $result = curl_exec($curl);
