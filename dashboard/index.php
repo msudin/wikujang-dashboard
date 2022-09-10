@@ -177,7 +177,7 @@ function loadBody() {
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
                         <a href="">
-                        <span class="info-box-icon bg-red"><i class="ion ion-android-sync"></i></span>
+                        <span class="info-box-icon bg-green"><i class="ion ion-android-sync"></i></span>
                         </a>
                         <div class="info-box-content">
                             <span class="info-box-text">Iklan Berjalan</i></span>

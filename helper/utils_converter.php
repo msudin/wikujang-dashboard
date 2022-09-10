@@ -24,7 +24,7 @@ function adsStatusColor($status) {
     } else if ($status == "active") {
         return "label label-success"; 
     } else if ($status == "waiting_payment") {
-        return "label label-info";  
+        return "label label-warning";  
     } else {
         return "label label-default";
     }
