@@ -10,5 +10,4 @@ function ucHandler($msg) {
         echo "Error UC : ".$msg;
     }
 }
-
 ?>

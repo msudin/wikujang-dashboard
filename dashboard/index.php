@@ -1,11 +1,9 @@
 <?php
-session_start();
 include_once('../helper/import.php');
-include '../utils/lib.php';
-
-$thisPage = "Dashboard";
+$thisPage = "dashboard";
+startSession();
 loadBody(); 
-    
+
 function loadBody() {  
 ?>
 
@@ -119,7 +117,7 @@ function loadBody() {
         <section class="content-header">
             <h1>Dashboard</h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
                 <li class="active">Dashboard</li>
             </ol>
         </section>
@@ -204,16 +202,24 @@ function loadBody() {
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <?php
+                                                <?php
                                                 $no = 0;
                                                 $listAds = getAds();
-                                                foreach($listAds as $data) { $no++; ?>
+                                                foreach($listAds as $data) { 
+                                                    $no++; 
+                                                    $status = $data->status;
+                                                    if ($status == "inactive") {
+                                                        $status = "Tidak aktif";
+                                                    } else if ($status == "active") {
+                                                        $status = "Aktif";
+                                                    }      
+                                                ?>
                                                 <tr>
-                                                <td><a href=""><?php echo $no; ?></a></td>
-                                                <td><?php echo $data->id; ?></td>
-                                                <td><?php echo $data->name; ?></td>
+                                                <td><a href=""><?=$no?></a></td>
+                                                <td><?=$data->id?></td>
+                                                <td><?=$data->name; ?></td>
                                                 <td>
-                                                    <span class="label label-info"><?php echo $data->status; ?></span>
+                                                    <span class="label label-info"><?=$status?></span>
                                                 </td>
                                                 <td>
                                                     <div class="sparkbar" data-color="#00a65a" data-height="20"><?php echo $data->createdAt; ?></div>
@@ -335,7 +341,6 @@ function loadBody() {
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
                 <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Lihat Semua</a>
-                <a href="javascript:void(0)" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
                 </div>
                 <!-- /.box-footer -->
             </div>

@@ -1,5 +1,21 @@
 <?php 
 
+function checkSession() {
+    if (session_id() == '') {
+        session_start();
+    }
+}
+
+function startSession(){
+    checkSession();
+    if (empty($_SESSION['id']) || $_SESSION['type'] !='admin'){
+      session_destroy();	
+      $login_redirect_url = "../index.php";
+      echo "<script>alert('Silakan login terlebih dahulu!'); window.location = '$login_redirect_url'</script>";
+      return false;
+    }
+}
+
 function isEnvironmentLocal() {
     return false;
 }

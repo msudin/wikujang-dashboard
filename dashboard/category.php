@@ -1,9 +1,7 @@
 <?php
-include 'kelas_uc.php';
-include '../utils/auth_case.php';
-$thisPage = "Data Kelas";
-
-validateAdminSession();
+include_once('../helper/import.php');
+$thisPage = "category";
+startSession();
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +9,7 @@ validateAdminSession();
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>SI-SPP | Data Kelas</title>
+  <title>Kategori Menu</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -27,40 +25,23 @@ validateAdminSession();
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
   <!-- Google Font -->
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-
-  <?php
-    include "header_admin.php";
-  ?>
-
-  <!-- Content Wrapper. Contains page content -->
+  <?php include_once "nav_header.php"; ?>
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Data Kelas
+        Kategori Menu
         <small>Preview</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="index.php"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li><a href="#">Kelas</a></li>
-        <li class="active">Data Kelas</li>
+        <li class="active">Kategori Menu</li>
       </ol>
     </section>
-
     <!-- Main content -->
     <section class="content">
       <div class="row">
@@ -68,30 +49,38 @@ validateAdminSession();
           <div class="box">
             <div class="box box-body">
               <?php
-              if(isset($_GET['message'])){
-                  if($_GET['message']=="add_success"){
-                      echo '<div class="box-body"><div class="alert alert-success alert-dismissible">
-                              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                              <h4><i class="icon fa fa-check"></i> Alert !</h4>
-                            Berhasil Menambahkan Kelas Baru. 
-                            </div></div>';
-                  }elseif($_GET['message']=="edit_success"){
+              if (isset($_GET['success'])) {
+                  if($_GET['success'] == "add"){
+                      echo '<div class="box-body">
+                              <div class="alert alert-success alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <h4><i class="icon fa fa-check"></i> Berhasil !</h4>Tambah kategori menu.
+                              </div>
+                            </div>';
+                  } else if($_GET['success'] == "edit"){
+                      echo '<div class="box-body">
+                              <div class="alert alert-success alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <h4><i class="icon fa fa-check"></i> Berhasil !</h4> Ubah kategori menu
+                              </div>
+                            </div>';
+                  } else if($_GET['success'] == "delete"){
                       echo '<div class="box-body"><div class="alert alert-success alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <h4><i class="icon fa fa-check"></i> Alert !</h4>
-                            Edit Kelas Berhasil. 
+                            <h4><i class="icon fa fa-check"></i> Berhasil !</h4>
+                              Kategori telah dihapus 
                             </div></div>';
-                  } elseif($_GET['message']=="delete_success"){
-                      echo '<div class="box-body"><div class="alert alert-success alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <h4><i class="icon fa fa-check"></i> Alert !</h4>
-                            Hapus Kelas Berhasil. 
-                            </div></div>';
+                  } else if ($_GET['success'] == "invalid") {
+                    echo '<div class="box-body"><div class="alert alert-danger alert-dismissible">
+                          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                          <h4><i class="icon fa fa-check"></i> Gagal !</h4>
+                            Terjadi kesalahan dalam memproses data
+                          </div></div>';
                   }
-                } ?>
+              } ?>
             <div class="form-group">
                     <a href="#" class="btn btn-success" data-target="#ModalAdd" data-toggle="modal">
-                      <i class="glyphicon glyphicon-plus"></i> Tambah Kelas
+                      <i class="glyphicon glyphicon-plus"></i>  Kategori Menu
                     </a>
               </div>
             <div class="box-body">
@@ -99,33 +88,29 @@ validateAdminSession();
                 <thead>
                 <tr>
                 <th width="10%">No</th>
-                  <th width="80%">Kelas</th>
+                  <th width="80%">Nama</th>
                   <th width="10%" class="text-center">Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
-
-                <?php
-                $no = 0; 
-                $dataList = getDataKelas();
-                
-                foreach($dataList as $kls) {
-                  $no++; 
-                ?>
-              
+                  <?php
+                  $no = 0; 
+                  $dataList = getCategoryMenu();
+                  foreach($dataList as $data) {
+                    $no++; 
+                  ?>
                 <tr>
-                  <td><?php echo $no; ?></td>
-                  <td><?php echo $kls['nama_kelas']; ?></td>
-                  <td align="center">
-                    <a href="#" class="edit_modal btn btn-warning btn-sm" id='<?php echo $kls['id_kelas']; ?>'>
+                  <td><?=$no; ?></td>
+                  <td><?=$data->name?></td>
+                  <td align = "center">
+                    <a href="#" class="edit_modal btn btn-warning btn-sm" id='<?php echo serialize(['id'=>$data->id, 'name'=>$data->name]); ?>'>
                       <i class="glyphicon glyphicon-pencil"></i>
                     </a>
-                    <a href="#" class="delete-modal btn btn-danger btn-sm" onclick="confirm_modal('kelas_uc.php?modal_id=<?php echo $kls['id_kelas']; ?>&uc_type=delete');">
+                    <a href="#" class="delete-modal btn btn-danger btn-sm" onclick="confirm_modal('../usecase/category_uc.php?id=<?=$data->id?>&action=deleteCategoryMenu');">
                       <i class="glyphicon glyphicon-trash"></i>
                     </a>
                   </td>
                 </tr>
-                
                 <?php } ?>
                 </tbody>
                 <tfoot>
@@ -149,9 +134,7 @@ validateAdminSession();
   </div>
   <!-- /.content-wrapper -->
   <!-- footer area -->
-  <?php 
-      include "footer.php"; 
-    ?>
+  <?php include_once "nav_footer.php"; ?>
   <!-- ./footer -->
 <!-- ./wrapper -->
 
@@ -161,30 +144,20 @@ validateAdminSession();
     <div class="modal-content">
       <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title" id="myModalLabel">Tambah Kelas Baru</h4>
+            <h4 class="modal-title" id="myModalLabel">Tambah Kategori Menu</h4>
         </div>
-
         <div class="modal-body">
-          <form action="kelas_uc.php" name="modal_popup" enctype="multipart/form-data" method="POST">
+          <form action="../usecase/category_uc.php" name="modal_popup" enctype="multipart/form-data" method="POST">
                 <div class="form-group">
-                  <label for="Modal Name">Nama Kelas</label>
-                  <input type="hidden" name="uc_type" value="insert"/>
-                  <input type="text" name="kelas_name"  class="form-control" placeholder="Nama Kelas" required/>
+                  <label for="Modal Name" style="font-weight: normal;">Nama Kategori</label>
+                  <input type="text" name="name"  class="form-control" style="font-weight: normal;" placeholder="Nama Kategori" required/>
                 </div>
               <div class="modal-footer">
-                  <button class="btn btn-success" type="submit">
-                      Simpan
-                  </button>
-
-                  <button type="reset" class="btn btn-danger"  data-dismiss="modal" aria-hidden="true">
-                    Cancel
-                  </button>
+                  <button class="btn btn-success" type="submit" name="submitAddCategoryMenu">Simpan</button>
+                  <button type="reset" class="btn btn-danger"  data-dismiss="modal" aria-hidden="true">Batal</button>
               </div>
-
               </form>
             </div>
-
-           
         </div>
     </div>
 </div>
@@ -200,11 +173,11 @@ validateAdminSession();
     <div class="modal-content" style="margin-top:100px;">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" style="text-align:center;">Apakah Anda Yakin Ingin menghapus Kelas Ini ?</h4>
+        <h4 class="modal-title" style="text-align:center;">Hapus Data ?</h4>
       </div>  
       <div class="modal-footer" style="margin:0px; border-top:0px; text-align:center;">
         <a href="#" class="btn btn-danger" id="delete_link">Hapus</a>
-        <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal">Batal</button>
       </div>
     </div>
   </div>
@@ -239,15 +212,15 @@ validateAdminSession();
     })
   })
 </script>
-
-<!-- Javascript untuk popup modal Edit--> 
 <script type="text/javascript">
    $(".edit_modal").click(function() {
       var m = $(this).attr("id");
 		   $.ajax({
-    			   url: "kelas_edit_modal.php",
+    			   url: "category_edit.php",
     			   type: "GET",
-    			   data : {modal_id: m,},
+    			   data : {
+              modal_id: m
+            },
     			   success: function (ajaxData){
       			   $("#ModalEdit").html(ajaxData);
       			   $("#ModalEdit").modal('show',{backdrop: 'true'});
@@ -255,11 +228,8 @@ validateAdminSession();
     		   });
         });
 </script>
-
-<!-- Javascript untuk popup modal Delete--> 
 <script type="text/javascript">
-    function confirm_modal(delete_url)
-    {
+    function confirm_modal(delete_url){
       $('#modal_delete').modal('show', {backdrop: 'static'});
       document.getElementById('delete_link').setAttribute('href' , delete_url);
     }
