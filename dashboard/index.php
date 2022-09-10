@@ -124,7 +124,7 @@ function loadBody() {
         <!-- Main content -->
         <section class="content">
             <div class="row">
-                <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
                         <a href="">
                             <span class="info-box-icon bg-aqua"><i class="ion ion-ios-people"></i></span>
@@ -139,7 +139,7 @@ function loadBody() {
                     <!-- /.info-box -->
                 </div>
                 <!-- /.col -->
-                <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
                         <a href="">
                         <span class="info-box-icon bg-red"><i class="ion ion-cube"></i></span>
@@ -158,7 +158,7 @@ function loadBody() {
 
                 <!-- fix for small devices only -->
                 <div class="clearfix visible-sm-block"></div>
-                <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
                         <a href="">
                             <span class="info-box-icon bg-gray"><i class="ion ion-ios-pint"></i></span>
@@ -169,6 +169,22 @@ function loadBody() {
                                 <?php echo getTotalProduct(); ?>
                             </span>
                         </div></a>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <a href="">
+                        <span class="info-box-icon bg-red"><i class="ion ion-android-sync"></i></span>
+                        </a>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Iklan Berjalan</i></span>
+                            <span class="info-box-number"> 
+                                <?=count(getAds(NULL, 'active'))?>
+                            </span>
+                        </div>
                         <!-- /.info-box-content -->
                     </div>
                     <!-- /.info-box -->
@@ -204,25 +220,19 @@ function loadBody() {
                                             <tbody>
                                                 <?php
                                                 $no = 0;
-                                                $listAds = getAds();
+                                                $listAds = getAds(10);
                                                 foreach($listAds as $data) { 
-                                                    $no++; 
-                                                    $status = $data->status;
-                                                    if ($status == "inactive") {
-                                                        $status = "Tidak aktif";
-                                                    } else if ($status == "active") {
-                                                        $status = "Aktif";
-                                                    }      
+                                                    $no++;   
                                                 ?>
                                                 <tr>
                                                 <td><a href=""><?=$no?></a></td>
                                                 <td><?=$data->id?></td>
                                                 <td><?=$data->name; ?></td>
                                                 <td>
-                                                    <span class="label label-info"><?=$status?></span>
+                                                    <span class="<?=adsStatusColor($data->status)?>"><?=adsStatus($data->status)?></span>
                                                 </td>
                                                 <td>
-                                                    <div class="sparkbar" data-color="#00a65a" data-height="20"><?php echo $data->createdAt; ?></div>
+                                                    <div class="sparkbar"><?php echo convertDateFormat($data->createdAt); ?></div>
                                                 </td>
                                                 </tr>
                                             <?php } ?>
@@ -237,12 +247,7 @@ function loadBody() {
                                         <a href="#" style="color: #FFFFFF">
                                             <div class="info-box-content">
                                                 <span class="info-box-text">Menunggu Pembayaran</span>
-                                                    <?php
-                                                        $ti = $usercount - $cb;
-                                                        $pre = "100"; 
-                                                        $bayar_pro = $ti * $pre / $usercount;
-                                                    ?>
-                                                <span class="info-box-number"><?=$ti;?></span>
+                                                <span class="info-box-number"><?=count(getAds(NULL, 'waiting payment'))?></span>
                                                 <div class="progress">
                                                     <div class="progress-bar" style="width: 100%">
                                                     </div>
@@ -329,7 +334,7 @@ function loadBody() {
                             <td><?php echo $data->openTime; ?> WIB</td>
                             <td><?php echo $data->closedTime; ?> WIB</td>
                             <td>
-                                <div class="sparkbar" data-color="#00a65a" data-height="20"><?php echo $data->createdAt; ?></div>
+                                <div class="sparkbar" data-color="#00a65a" data-height="20"><?php echo convertDateFormat($data->createdAt); ?></div>
                             </td>
                         </tr>
                     <?php } ?>
@@ -385,7 +390,7 @@ function loadBody() {
                                 ?>
                             </td>
                             <td>
-                                <div class="sparkbar" data-color="#00a65a" data-height="20"><?php echo $data->createdAt; ?></div>
+                                <div class="sparkbar" data-color="#00a65a" data-height="20"><?php echo convertDateFormat($data->createdAt); ?></div>
                             </td>
                         </tr>
                     <?php } ?>
