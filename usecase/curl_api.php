@@ -1,7 +1,7 @@
 <?php
 include_once('../helper/import.php');
 
-function callAPI($method, $url, $data){
+function callAPI($method, $url, $data, $isAuth = false){
    $curl = curl_init();
    switch ($method){
       case "POST":
@@ -23,6 +23,12 @@ function callAPI($method, $url, $data){
    curl_setopt($curl, CURLOPT_URL, $url);
    curl_setopt($ch, CURLOPT_TIMEOUT, 0);
    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+   if ($isAuth) {
+      curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+         'Authorization: f5a6158a5bc8cd601edd661e087d72d7',
+         'Content-Type: application/json',
+      ));
+   }
 
    // EXECUTE:
    $result = curl_exec($curl);
