@@ -214,6 +214,7 @@ function loadBody() {
                                                 <th>Nama</th>
                                                 <th>Warung</th>
                                                 <th>Status</th>
+                                                <th>Pembayaran</th>
                                                 <th>Tanggal Dibuat</th>
                                             </tr>
                                             </thead>
@@ -240,6 +241,17 @@ function loadBody() {
                                                     <span class="<?=adsStatusColor($data->status)?>"><?=adsStatus($data->status)?></span>
                                                 </td>
                                                 <td>
+                                                    <?php 
+                                                        if ($data->paymentStatus == "PENDING") { 
+                                                            echo '<span class="label label-warning">Menunggu Pembayaran</span>'; 
+                                                        } else if ($data->paymentStatus == "PAID") { 
+                                                            echo '<span class="label label-success">Dibayar</span>';
+                                                        } else if ($data->paymentStatus == "EXPIRED") { 
+                                                            echo '<span class="label label-info">Kadaluarsa</span>';
+                                                        }
+                                                    ?>
+                                                </td>
+                                                <td>
                                                     <div class="sparkbar"><?php echo convertDateFormat($data->createdAt); ?></div>
                                                 </td>
                                                 </tr>
@@ -255,7 +267,7 @@ function loadBody() {
                                         <a href="#" style="color: #FFFFFF">
                                             <div class="info-box-content">
                                                 <span class="info-box-text">Menunggu Pembayaran</span>
-                                                <span class="info-box-number"><?=count(getAds(NULL, "waiting_payment"))?></span>
+                                                <span class="info-box-number"><?=count(getAds(NULL, NULL, "PENDING"))?></span>
                                                 <div class="progress">
                                                     <div class="progress-bar" style="width: 100%">
                                                     </div>
@@ -333,7 +345,7 @@ function loadBody() {
                             <td>
                                 <?php 
                                     if ($data->isOpen == "true") { 
-                                        echo '<span class="label label-success">Buka</span>'; 
+                                        echo '<span class="label label-primary">Buka</span>'; 
                                     } else { 
                                         echo '<span class="label label-info">Tutup</span>';
                                     }
