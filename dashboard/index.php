@@ -242,11 +242,11 @@ function loadBody() {
                                                 </td>
                                                 <td>
                                                     <?php 
-                                                        if ($data->paymentStatus == "PENDING") { 
-                                                            echo '<span class="label label-warning">Menunggu Pembayaran</span>'; 
-                                                        } else if ($data->paymentStatus == "PAID") { 
-                                                            echo '<span class="label label-success">Dibayar</span>';
-                                                        } else if ($data->paymentStatus == "EXPIRED") { 
+                                                        if ($data->invoice->status == "PENDING") { 
+                                                            echo '<span class="label label-primary">Belum Bayar</span>'; 
+                                                        } else if ($data->invoice->status == "PAID") { 
+                                                            echo '<span class="label label-success">Terbayar</span>';
+                                                        } else if ($data->invoice->status == "EXPIRED") { 
                                                             echo '<span class="label label-info">Kadaluarsa</span>';
                                                         }
                                                     ?>
