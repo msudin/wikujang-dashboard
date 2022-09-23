@@ -54,21 +54,21 @@ startSession();
                       echo '<div class="box-body">
                               <div class="alert alert-success alert-dismissible">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                <h4><i class="icon fa fa-check"></i> Berhasil !</h4>Tambah kategori menu.
+                                <h4><i class="icon fa fa-check"></i> Berhasil !</h4>Tambah Iklan
                               </div>
                             </div>';
                   } else if($_GET['success'] == "edit"){
                       echo '<div class="box-body">
                               <div class="alert alert-success alert-dismissible">
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                <h4><i class="icon fa fa-check"></i> Berhasil !</h4> Ubah kategori menu
+                                <h4><i class="icon fa fa-check"></i> Berhasil !</h4> Ubah Iklan
                               </div>
                             </div>';
                   } else if($_GET['success'] == "delete"){
                       echo '<div class="box-body"><div class="alert alert-success alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                             <h4><i class="icon fa fa-check"></i> Berhasil !</h4>
-                              Kategori telah dihapus 
+                              Iklan telah dihapus 
                             </div></div>';
                   } else if ($_GET['success'] == "invalid") {
                     echo '<div class="box-body"><div class="alert alert-danger alert-dismissible">
