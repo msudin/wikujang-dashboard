@@ -62,6 +62,11 @@
           <i class="fa fa-archive"></i> <span>Kategori Menu</span>
         </a>
       </li>
+      <li <?php if($thisPage == "ads") echo "class='active'"; ?>>
+        <a href="ads.php">
+          <i class="fa fa-bar-chart-o"></i> <span>Iklan</span>
+        </a>
+      </li>
     </ul>
     </section>
     <!-- /.sidebar -->

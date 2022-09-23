@@ -211,8 +211,8 @@ function loadBody() {
                                             <thead>
                                             <tr>
                                                 <th>No </th>
-                                                <th>Nama</th>
                                                 <th>Warung</th>
+                                                <th>Nama</th>
                                                 <th>Status</th>
                                                 <th>Pembayaran</th>
                                                 <th>Tanggal Dibuat</th>
@@ -221,13 +221,12 @@ function loadBody() {
                                             <tbody>
                                                 <?php
                                                 $no = 0;
-                                                $listAds = getAds(10);
+                                                $listAds = getAds(5);
                                                 foreach($listAds as $data) { 
                                                     $no++;   
                                                 ?>
                                                 <tr>
                                                 <td><a href=""><?=$no?></a></td>
-                                                <td><?=$data->name; ?></td>
                                                 <td>
                                                     <?php
                                                         if (empty($data->warung->name)) {
@@ -237,20 +236,9 @@ function loadBody() {
                                                         }
                                                     ?>
                                                 </td>
-                                                <td>
-                                                    <span class="<?=adsStatusColor($data->status)?>"><?=adsStatus($data->status)?></span>
-                                                </td>
-                                                <td>
-                                                    <?php 
-                                                        if ($data->invoice->status == "PENDING") { 
-                                                            echo '<span class="label label-primary">Belum Bayar</span>'; 
-                                                        } else if ($data->invoice->status == "PAID") { 
-                                                            echo '<span class="label label-success">Terbayar</span>';
-                                                        } else if ($data->invoice->status == "EXPIRED") { 
-                                                            echo '<span class="label label-info">Kadaluarsa</span>';
-                                                        }
-                                                    ?>
-                                                </td>
+                                                <td><?=$data->name?></td>
+                                                <td><?=adsStatusColorName($data->status)?></td>
+                                                <td><?=adsPaymentStatus($data->invoice->status)?></td>
                                                 <td>
                                                     <div class="sparkbar"><?php echo convertDateFormat($data->createdAt); ?></div>
                                                 </td>
@@ -283,14 +271,12 @@ function loadBody() {
                                         <a href="" style="color: #FFFFFF">
                                             <div class="info-box-content">
                                                 <span class="info-box-text">Total Pendapatan</span>
-                                                <?php
-                                                    $monthy = date('Y-m');
-                                                    $sql_tb = mysqli_query($koneksi, "SELECT SUM(nominal_bayar) FROM tb_pembayaran WHERE tgl_bayar LIKE '%$monthy%' "); 
-                                                    $tb = mysqli_fetch_array($sql_tb); 
-                                                    $trans_tb = $tb[0]; 
-                                                ?>
                                                 <span class="info-box-number">
-                                                    <?php echo rupiah0($trans_tb); ?>
+                                                    <?php 
+                                                        $monthy = date('Y-m');
+                                                        $trans_tb = getAdsRevenue($monthy, "PAID");
+                                                        echo rupiah0($trans_tb->totalAmount); 
+                                                    ?>
                                                 </span>
                                                 <div class="progress">
                                                     <div class="progress-bar" style="width: 100%"></div>
@@ -305,7 +291,7 @@ function loadBody() {
                             </div>
                         </div>
                         <div class="box-footer clearfix">
-                            <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Lihat Semua</a>
+                            <a href="ads.php" class="btn btn-sm btn-info btn-flat pull-left">Lihat Semua</a>
                         </div>
                     </div>
                 </div>
@@ -337,7 +323,7 @@ function loadBody() {
                     <tbody>
                     <?php
                         $no = 0;
-                        $listUser = getListWarung(10);
+                        $listUser = getListWarung(5);
                         foreach($listUser as $data) { $no++; ?>
                         <tr>
                             <td><a href=""><?php echo $no; ?></a></td>
@@ -393,7 +379,7 @@ function loadBody() {
                     <tbody>
                     <?php
                         $no = 0;
-                        $listUser = getListUser(10);
+                        $listUser = getListUser(5);
                         foreach($listUser as $data) { $no++; ?>
                         <tr>
                             <td><a href="#"><?php echo $no; ?></a></td>
