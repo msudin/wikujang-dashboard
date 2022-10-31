@@ -17,7 +17,7 @@ function startSession(){
 }
 
 function isEnvironmentLocal() {
-    return true;
+    return false;
 }
 
 function serverName() {
