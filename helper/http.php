@@ -17,7 +17,7 @@ function startSession(){
 }
 
 function isEnvironmentLocal() {
-    return false;
+    return true;
 }
 
 function serverName() {
@@ -42,7 +42,7 @@ function serverDbPassword() {
 
 function serverDbName() {
     if (isEnvironmentLocal()) { 
-        return "wikujang_db";
+        return "wikujangdb";
     } else {
         return "wiks7958_wikujang";
     }

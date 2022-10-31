@@ -5,6 +5,7 @@ if(isset($_POST['submitLogin'])) {
   $conn = callDb();
   $username = mysqli_real_escape_string($conn, $_POST['username']);
   $password = mysqli_real_escape_string($conn, $_POST['password']);
+  
   $sqlAdmin = "SELECT * FROM `admin` WHERE username='$username'";
   $resultAdmin = $conn->query($sqlAdmin);
   if ($resultAdmin->num_rows == 1) {

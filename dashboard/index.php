@@ -130,7 +130,7 @@ function loadBody() {
                             <span class="info-box-icon bg-aqua"><i class="ion ion-ios-people"></i></span>
                         </a>
                         <div class="info-box-content">
-                            <span class="info-box-text">Pengguna</span>
+                            <span class="info-box-text">User</span>
                             <span class="info-box-number"><?php echo getTotalUser(); ?>
                             </span>
                         </div>
@@ -351,14 +351,14 @@ function loadBody() {
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
-                <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat pull-left">Lihat Semua</a>
+                <a href="warung.php" class="btn btn-sm btn-info btn-flat pull-left">Lihat Semua</a>
                 </div>
                 <!-- /.box-footer -->
             </div>
             <!-- TABLE: LATEST USER -->
             <div class="box box-info">
                 <div class="box-header with-border">
-                <h3 class="box-title">Daftar Pengguna </h3>
+                <h3 class="box-title">Daftar User</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -407,7 +407,7 @@ function loadBody() {
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    <a href="#" class="btn btn-sm btn-info btn-flat pull-left">Lihat Semua</a>
+                    <a href="user.php" class="btn btn-sm btn-info btn-flat pull-left">Lihat Semua</a>
                 </div>
                 <!-- /.box-footer -->
             </div>

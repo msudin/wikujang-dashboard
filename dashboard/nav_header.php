@@ -67,6 +67,16 @@
           <i class="fa fa-bar-chart-o"></i> <span>Iklan</span>
         </a>
       </li>
+      <li <?php if($thisPage == "user") echo "class='active'"; ?>>
+        <a href="user.php">
+          <i class="fa fa-users"></i> <span>User</span>
+        </a>
+      </li>
+      <li <?php if($thisPage == "warung") echo "class='active'"; ?>>
+        <a href="warung.php">
+          <i class="ion ion-cube"></i> <span>Warung</span>
+        </a>
+      </li>
     </ul>
     </section>
     <!-- /.sidebar -->

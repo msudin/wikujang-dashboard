@@ -84,43 +84,45 @@ startSession();
                     </a>
               </div>
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                <th width="10%">No</th>
-                  <th width="80%">Nama</th>
-                  <th width="10%" class="text-center">Aksi</th>
-                </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  $no = 0; 
-                  $dataList = getCategoryMenu();
-                  foreach($dataList as $data) {
-                    $no++; 
-                  ?>
-                <tr>
-                  <td><?=$no; ?></td>
-                  <td><?=$data->name?></td>
-                  <td align = "center">
-                    <a href="#" class="edit_modal btn btn-warning btn-sm" id='<?php echo serialize(['id'=>$data->id, 'name'=>$data->name]); ?>'>
-                      <i class="glyphicon glyphicon-pencil"></i>
-                    </a>
-                    <a href="#" class="delete-modal btn btn-danger btn-sm" onclick="confirm_modal('../usecase/category_uc.php?id=<?=$data->id?>&action=deleteCategoryMenu');">
-                      <i class="glyphicon glyphicon-trash"></i>
-                    </a>
-                  </td>
-                </tr>
-                <?php } ?>
-                </tbody>
-                <tfoot>
-                <tr>
+              <div class="box-body table-responsive no-padding">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
                   <th width="10%">No</th>
-                  <th width="80%">Kelas</th>
-                  <th class="text-center" width="10%">Aksi</th>
-                </tr>
-                </tfoot>
-              </table>
+                    <th width="80%">Nama</th>
+                    <th width="10%" class="text-center">Aksi</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <?php
+                    $no = 0; 
+                    $dataList = getCategoryMenu();
+                    foreach($dataList as $data) {
+                      $no++; 
+                    ?>
+                  <tr>
+                    <td><?=$no; ?></td>
+                    <td><?=$data->name?></td>
+                    <td align = "center">
+                      <a href="#" class="edit_modal btn btn-warning btn-sm" id='<?php echo serialize(['id'=>$data->id, 'name'=>$data->name]); ?>'>
+                        <i class="glyphicon glyphicon-pencil"></i>
+                      </a>
+                      <a href="#" class="delete-modal btn btn-danger btn-sm" onclick="confirm_modal('../usecase/category_uc.php?id=<?=$data->id?>&action=deleteCategoryMenu');">
+                        <i class="glyphicon glyphicon-trash"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  <?php } ?>
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th width="10%">No</th>
+                    <th width="80%">Kelas</th>
+                    <th class="text-center" width="10%">Aksi</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
             </div>
             <!-- /.box-body -->
           </div>

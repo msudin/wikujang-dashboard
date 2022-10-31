@@ -1,6 +1,6 @@
 <?php
 include_once('../helper/import.php');
-$thisPage = "ads";
+$thisPage = "user";
 startSession();
 ?>
 
@@ -35,12 +35,12 @@ startSession();
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Iklan
+        User
         <small>Preview</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="index.php"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li class="active">Iklan</li>
+        <li class="active">User</li>
       </ol>
     </section>
     <!-- Main content -->
@@ -84,57 +84,39 @@ startSession();
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>No</th>
-                    <th>Warung</th>
+                    <th>No.</th>
                     <th>Nama</th>
-                    <th>Deskripsi</th>
                     <th>Status</th>
-                    <th>Pembayaran</th>
-                    <th>Iklan Mulai</th>
-                    <th>Iklan Berakhir</th>
-                    <th>Tgl Bayar</th>
-                    <th>Metode Pembayaran</th>
-                    <th>Dibuat</th>
+                    <th>Register</th>
                     <th class="text-center">Aksi</th>
                   </tr>
                   </thead>
                   <tbody>
-                    <?php
-                    $no = 0; 
-                    $dataList = getAds();
-                    foreach($dataList as $data) {
-                      $no++; 
-                    ?>
+                  <?php
+                    $no = 0;
+                    $listUser = getListUser(5);
+                    foreach($listUser as $data) { $no++;
+                  ?>
                   <tr>
-                    <td><?=$no; ?></td>
+                  <td><a href="#"><?php echo $no; ?></a></td>
+                    <td><?php echo $data->fullName; ?></td>
                     <td>
-                        <?php
-                            if (empty($data->warung->name)) {
-                                echo "Administrator";
+                        <?php if ($data->role == "user") { echo '<span class="label label-info">User</span>'; } ?>
+                        <?php if ($data->role == "warung") { echo '<span class="label label-success">User Warung</span>'; } ?>
+                        <?php 
+                            if ($data->deletedAt == "") { 
+                                echo '<span class="label label-primary">Aktif</span>'; 
                             } else {
-                                echo $data->warung->name;
+                                echo '<span class="label label-danger">Tidak Aktif</span>'; 
                             }
                         ?>
                     </td>
-                    <td><?=$data->name?></td>
-                    <td><?=$data->description?></td>
-                    <td><?=adsStatusColorName($data->status)?></td>
-                    <td><?=adsPaymentStatus($data->invoice->status)?></td>
-                    <td><?=convertDateFormat($data->startDate, "Y-m-d")?></td>
-                    <td><?=convertDateFormat($data->startDate, "Y-m-d")?></td>
-                    <td><?=dateUtcToLocal($data->invoice->paymentDate)?></td>
                     <td>
-                      <?php 
-                          if (!empty($data->invoice->method)) {
-                            echo $data->invoice->channel;
-                            echo " (".$data->invoice->method.")";
-                          } 
-                      ?>
+                        <div class="sparkbar" data-color="#00a65a" data-height="20"><?php echo convertDateFormat($data->createdAt); ?></div>
                     </td>
-                    <td><?=convertDateFormat($data->createdAt)?></td>
                     <td align = "center">
-                      <a href="#" class="edit_modal btn btn-warning btn-sm" id='<?php echo serialize(['id'=>$data->id, 'name'=>$data->name]); ?>'>
-                        <i class="glyphicon glyphicon-pencil"></i>
+                      <a href="#" class="edit_modal btn btn-default btn-sm" id='<?php echo serialize(['id'=>$data->id, 'name'=>$data->name]); ?>'>
+                        <i class="glyphicon glyphicon-eye-open"></i>
                       </a>
                     </td>
                   </tr>
@@ -142,17 +124,10 @@ startSession();
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th>No</th>
-                    <th>Warung</th>
+                    <th>No.</th>
                     <th>Nama</th>
-                    <th>Deskripsi</th>
                     <th>Status</th>
-                    <th>Pembayaran</th>
-                    <th>Iklan Mulai</th>
-                    <th>Iklan Berakhir</th>
-                    <th>Tgl Bayar</th>
-                    <th>Metode Pembayaran</th>
-                    <th>Dibuat</th>
+                    <th>Register</th>
                     <th class="text-center">Aksi</th>
                   </tr>
                   </tfoot>
