@@ -88,8 +88,9 @@ startSession();
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                  <th width="10%">No</th>
-                    <th width="80%">Nama</th>
+                    <th width="10%">No</th>
+                    <th width="20%">ID</th>
+                    <th width="60%">Nama</th>
                     <th width="10%" class="text-center">Aksi</th>
                   </tr>
                   </thead>
@@ -102,6 +103,7 @@ startSession();
                     ?>
                   <tr>
                     <td><?=$no; ?></td>
+                    <td><?=$data->id?></td>
                     <td><?=$data->name?></td>
                     <td align = "center">
                       <a href="#" class="edit_modal btn btn-warning btn-sm" id='<?php echo serialize(['id'=>$data->id, 'name'=>$data->name]); ?>'>
@@ -117,7 +119,8 @@ startSession();
                   <tfoot>
                   <tr>
                     <th width="10%">No</th>
-                    <th width="80%">Kelas</th>
+                    <th width="20%">ID</th>
+                    <th width="60%">Nama</th>
                     <th class="text-center" width="10%">Aksi</th>
                   </tr>
                   </tfoot>

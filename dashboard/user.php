@@ -85,10 +85,11 @@ startSession();
                   <thead>
                   <tr>
                     <th>No.</th>
+                    <th>ID</th>
                     <th>Nama</th>
                     <th>Status</th>
                     <th>Register</th>
-                    <th class="text-center">Aksi</th>
+                    <!-- <th class="text-center">Aksi</th> -->
                   </tr>
                   </thead>
                   <tbody>
@@ -98,7 +99,8 @@ startSession();
                     foreach($listUser as $data) { $no++;
                   ?>
                   <tr>
-                  <td><a href="#"><?php echo $no; ?></a></td>
+                    <td><a href="#"><?php echo $no; ?></a></td>
+                    <td><?php echo $data->id; ?></td>
                     <td><?php echo $data->fullName; ?></td>
                     <td>
                         <?php if ($data->role == "user") { echo '<span class="label label-info">User</span>'; } ?>
@@ -112,23 +114,24 @@ startSession();
                         ?>
                     </td>
                     <td>
-                        <div class="sparkbar" data-color="#00a65a" data-height="20"><?php echo convertDateFormat($data->createdAt); ?></div>
+                        <div class="sparkbar" data-color="#00a65a" data-height="20"><?php echo $data->createdAt; ?></div>
                     </td>
-                    <td align = "center">
+                    <!-- <td align = "center">
                       <a href="#" class="edit_modal btn btn-default btn-sm" id='<?php echo serialize(['id'=>$data->id, 'name'=>$data->name]); ?>'>
                         <i class="glyphicon glyphicon-eye-open"></i>
                       </a>
-                    </td>
+                    </td> -->
                   </tr>
                   <?php } ?>
                   </tbody>
                   <tfoot>
                   <tr>
                     <th>No.</th>
+                    <th>ID</th>
                     <th>Nama</th>
                     <th>Status</th>
                     <th>Register</th>
-                    <th class="text-center">Aksi</th>
+                    <!-- <th class="text-center">Aksi</th> -->
                   </tr>
                   </tfoot>
                 </table>

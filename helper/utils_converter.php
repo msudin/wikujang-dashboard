@@ -44,7 +44,9 @@ function adsPaymentStatus($status) {
     } else if ($status == "PAID") { 
         return '<span class="label label-success">Terbayar</span>';
     } else if ($status == "EXPIRED") { 
-        return '<span class="label label-info">Kadaluarsa</span>';
+        return '<span class="label label-danger">Expired</span>';
+    } else {
+        return '<span class="label label-default">-</span>';
     }
 }
 
@@ -55,6 +57,31 @@ function adsStatusColorName($status) {
         return '<span class="label label-success">Aktif</span>';
     } else {
         return '<span class="label label-default">Undefined Status</span>';
+    }
+}
+
+
+function bookingPaymentColorName($status) {
+    if ($status == "PENDING") { 
+        return '<span class="label label-primary">Belum Bayar</span>'; 
+    } else if ($status == "PAID") { 
+        return '<span class="label label-success">Terbayar</span>';
+    } else if ($status == "EXPIRED") { 
+        return '<span class="label label-danger">Expired</span>';
+    } else {
+        return '<span class="label label-default">-</span>';
+    }
+}
+
+function bookingStatusColorName($status) {
+    if ($status == "waiting_approval") { 
+        return '<span class="label label-primary">Proses</span>'; 
+    } else if ($status == "approved") { 
+        return '<span class="label label-success">Disetujui</span>';
+    } else if ($status == "rejected") { 
+        return '<span class="label label-danger">Ditolak</span>';
+    } else {
+        return '<span class="label label-default">-</span>';
     }
 }
 

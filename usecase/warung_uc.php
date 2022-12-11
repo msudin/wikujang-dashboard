@@ -25,6 +25,7 @@ function getListWarung($limit = 0) {
     $result = $conn->query($sqlAllUser);
     while($row = $result->fetch_assoc()) {
         $data = new stdClass();
+        $data->id = $row['warung_id'];
         $data->name = $row['name'];
         $data->createdAt = $row['created_at'];
         $data->isOpen = $row['is_open'];

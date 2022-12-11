@@ -177,7 +177,7 @@ function loadBody() {
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
                         <a href="">
-                        <span class="info-box-icon bg-green"><i class="ion ion-android-sync"></i></span>
+                        <span class="info-box-icon bg-orange"><i class="ion ion-android-sync"></i></span>
                         </a>
                         <div class="info-box-content">
                             <span class="info-box-text">Iklan Berjalan</i></span>
@@ -189,8 +189,45 @@ function loadBody() {
                     </div>
                     <!-- /.info-box -->
                 </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <a href="">
+                        <span class="info-box-icon bg-green"><i class="ion ion-cash"></i></span>
+                        </a>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Pendapatan Iklan</i></span>
+                            <span class="info-box-number">
+                                <?php 
+                                    $trans_tb = getAdsRevenue(NULL, "PAID");
+                                    echo rupiah0($trans_tb->totalAmount); 
+                                ?>
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <a href="">
+                        <span class="info-box-icon bg-purple"><i class="ion ion-cash"></i></span>
+                        </a>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Pendapatan Booking</i></span>
+                            <span class="info-box-number"> 
+                                <?php 
+                                    $trans_booking = getBookingRevenue(NULL, "PAID");
+                                    echo rupiah0($trans_booking->totalAmount); 
+                                ?>
+                            </span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
                 <!-- /.col -->
             </div> <!-- /.row -->
+            <!-- TABLE: IKLAN -->
             <div class="row">
                 <div class="col-md-12">
                     <div class="box box-info">
@@ -205,12 +242,13 @@ function loadBody() {
                         <!-- /.box-header -->
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-md-8">
+                                <div class="col-md-12">
                                     <div class="table-responsive">
                                         <table class="table no-margin">
                                             <thead>
                                             <tr>
                                                 <th>No </th>
+                                                <th>No. Referensi</th>
                                                 <th>Warung</th>
                                                 <th>Nama</th>
                                                 <th>Status</th>
@@ -227,6 +265,7 @@ function loadBody() {
                                                 ?>
                                                 <tr>
                                                 <td><a href=""><?=$no?></a></td>
+                                                <td><?=$data->id?></td>
                                                 <td>
                                                     <?php
                                                         if (empty($data->warung->name)) {
@@ -240,7 +279,7 @@ function loadBody() {
                                                 <td><?=adsStatusColorName($data->status)?></td>
                                                 <td><?=adsPaymentStatus($data->invoice->status)?></td>
                                                 <td>
-                                                    <div class="sparkbar"><?php echo convertDateFormat($data->createdAt); ?></div>
+                                                    <div class="sparkbar"><?php echo $data->createdAt; ?></div>
                                                 </td>
                                                 </tr>
                                             <?php } ?>
@@ -248,50 +287,74 @@ function loadBody() {
                                         </table>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="info-box bg-yellow">
-                                        <span class="info-box-icon"><i
-                                                class="ion ion-ios-pricetag-outline"></i></span>
-                                        <a href="#" style="color: #FFFFFF">
-                                            <div class="info-box-content">
-                                                <span class="info-box-text">Menunggu Pembayaran</span>
-                                                <span class="info-box-number"><?=count(getAds(NULL, NULL, "PENDING"))?></span>
-                                                <div class="progress">
-                                                    <div class="progress-bar" style="width: 100%">
-                                                    </div>
-                                                </div>
-                                                <span class="progress-description">
-                                                    Lihat Semua
-                                                </span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="info-box bg-green">
-                                        <span class="info-box-icon"><i class="fa fa-credit-card"></i></span>
-                                        <a href="" style="color: #FFFFFF">
-                                            <div class="info-box-content">
-                                                <span class="info-box-text">Total Pendapatan</span>
-                                                <span class="info-box-number">
-                                                    <?php 
-                                                        $monthy = date('Y-m');
-                                                        $trans_tb = getAdsRevenue($monthy, "PAID");
-                                                        echo rupiah0($trans_tb->totalAmount); 
-                                                    ?>
-                                                </span>
-                                                <div class="progress">
-                                                    <div class="progress-bar" style="width: 100%"></div>
-                                                </div>
-                                                <span class="progress-description">
-                                                    Bulan <?php echo convertmonthtobulan(date("m"));?>
-                                                </span>
-                                            </div>
-                                        </a>
+                            </div>
+                        </div>
+                        <div class="box-footer clearfix">
+                            <a href="ads.php" class="btn btn-sm btn-info btn-flat pull-left">Lihat Semua</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- TABLE: BOOKING -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-info">
+                        <div class="box-header with-border">
+                        <h3 class="box-title">Booking</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table no-margin">
+                                            <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>ID</th>
+                                                <th>User</th>
+                                                <th>Warung</th>
+                                                <th>Person</th>
+                                                <th>DP</th>
+                                                <th>Status</th>
+                                                <th>Pembayaran</th>
+                                                <th>Tanggal Dibuat</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $no = 0;
+                                                $listAds = getBookings(5);
+                                                foreach($listAds as $data) { 
+                                                    $no++;   
+                                                ?>
+                                                <tr>
+                                                <td><a href=""><?=$no?></a></td>
+                                                <td><?=$data->id?></a></td>
+                                                <td><?php echo $data->user->fullName; ?></td>
+                                                <td><?php echo $data->warung->name; ?></td>
+                                                <td><?=$data->person?></a></td>
+                                                <td><?=rupiah0($data->dpAmount)?></a></td>
+                                                <td><?=bookingStatusColorName($data->status)?></td>
+                                                <td><?=bookingPaymentColorName($data->invoice->status)?></td>
+                                                <td>
+                                                    <div class="sparkbar"><?php echo $data->createdAt; ?></div>
+                                                </td>
+                                                </tr>
+                                            <?php } ?>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="box-footer clearfix">
-                            <a href="ads.php" class="btn btn-sm btn-info btn-flat pull-left">Lihat Semua</a>
+                            <a href="" class="btn btn-sm btn-info btn-flat pull-left">Lihat Semua</a>
                         </div>
                     </div>
                 </div>
@@ -313,6 +376,7 @@ function loadBody() {
                     <thead>
                     <tr>
                         <th>No.</th>
+                        <th>ID</th>
                         <th>Nama</th>
                         <th>Status</th>
                         <th>Jam Buka</th>
@@ -327,6 +391,7 @@ function loadBody() {
                         foreach($listUser as $data) { $no++; ?>
                         <tr>
                             <td><a href=""><?php echo $no; ?></a></td>
+                            <td><?php echo $data->id; ?></td>
                             <td><?php echo $data->name; ?></td>
                             <td>
                                 <?php 
@@ -340,7 +405,7 @@ function loadBody() {
                             <td><?php echo $data->openTime; ?> WIB</td>
                             <td><?php echo $data->closedTime; ?> WIB</td>
                             <td>
-                                <div class="sparkbar" data-color="#00a65a" data-height="20"><?php echo convertDateFormat($data->createdAt); ?></div>
+                                <div class="sparkbar" data-color="#00a65a" data-height="20"><?php echo $data->createdAt; ?></div>
                             </td>
                         </tr>
                     <?php } ?>
@@ -371,6 +436,7 @@ function loadBody() {
                     <thead>
                     <tr>
                         <th>No.</th>
+                        <th>ID</th>
                         <th>Nama</th>
                         <th>Status</th>
                         <th>Register</th>
@@ -383,6 +449,7 @@ function loadBody() {
                         foreach($listUser as $data) { $no++; ?>
                         <tr>
                             <td><a href="#"><?php echo $no; ?></a></td>
+                            <td><?php echo $data->id; ?></td>
                             <td><?php echo $data->fullName; ?></td>
                             <td>
                                 <?php if ($data->role == "user") { echo '<span class="label label-info">User</span>'; } ?>
@@ -396,7 +463,7 @@ function loadBody() {
                                 ?>
                             </td>
                             <td>
-                                <div class="sparkbar" data-color="#00a65a" data-height="20"><?php echo convertDateFormat($data->createdAt); ?></div>
+                                <div class="sparkbar" data-color="#00a65a" data-height="20"><?php echo $data->createdAt; ?></div>
                             </td>
                         </tr>
                     <?php } ?>

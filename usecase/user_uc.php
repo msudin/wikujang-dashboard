@@ -10,7 +10,6 @@ function getTotalUser() {
     }
 }
 
-
 function getListUser($limit = 0) {
     $conn = callDb();
     $array = array();
@@ -25,7 +24,7 @@ function getListUser($limit = 0) {
     $result = $conn->query($sqlAllUser);
     while($row = $result->fetch_assoc()) {
         $data = new stdClass();
-        $data->userId = $row['user_id'];
+        $data->id = $row['user_id'];
         $data->fullName = $row['fullname'];
         $data->createdAt = $row['created_at'];
         $data->role = $row['role'];

@@ -45,10 +45,102 @@ startSession();
     </section>
     <!-- Main content -->
     <section class="content">
+      <!-- Table Info -->
+      <div class="row">
+        <div class="col-md-4 col-sm-8 col-xs-12">
+            <div class="info-box">
+                <a href="">
+                <span class="info-box-icon bg-green"><i class="ion ion-cash"></i></span>
+                </a>
+                <div class="info-box-content">
+                    <span class="info-box-text">Pendapatan Iklan</i></span>
+                    <span class="info-box-number">
+                        <?php 
+                            $trans_paid = getAdsRevenue(NULL, "PAID");
+                            echo rupiah0($trans_paid->totalAmount); 
+                        ?>
+                    </span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-4 col-sm-8 col-xs-12">
+            <div class="info-box">
+                <a href="">
+                <span class="info-box-icon bg-orange"><i class="ion ion-android-sync"></i></span>
+                </a>
+                <div class="info-box-content">
+                    <span class="info-box-text">Aktif</i></span>
+                    <span class="info-box-number"> 
+                        <?=count(getAds(NULL, 'active'))?>
+                    </span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-4 col-sm-8 col-xs-12">
+            <div class="info-box">
+                <a href="">
+                    <span class="info-box-icon bg-green"><i class="ion ion-checkmark-circled"></i></span>
+                </a>
+                <div class="info-box-content">
+                    <span class="info-box-text">Terbayar</span>
+                    <span class="info-box-number">
+                      <?php 
+                          $trans_paid = getAdsRevenue(NULL, "PAID");
+                          echo $trans_paid->totalData ?? 0; 
+                      ?>
+                    </span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+        <div class="col-md-4 col-sm-8 col-xs-12">
+            <div class="info-box">
+                <a href="">
+                <span class="info-box-icon bg-blue"><i class="ion ion-android-sync"></i></span>
+                </a>
+                <div class="info-box-content">
+                    <span class="info-box-text">Belum Bayar</i></span>
+                    <span class="info-box-number"> 
+                        <?php 
+                          $trans_pending = getAdsRevenue(NULL, "PENDING");
+                          echo $trans_pending->totalData ?? 0; 
+                      ?>
+                    </span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-4 col-sm-8 col-xs-12">
+            <div class="info-box">
+                <a href="">
+                    <span class="info-box-icon bg-red"><i class="ion ion-close-circled"></i></span>
+                </a>
+                <div class="info-box-content">
+                    <span class="info-box-text">Expired</span>
+                    <span class="info-box-number">
+                      <?php 
+                          $trans_exp = getAdsRevenue(NULL, "EXPIRED");
+                          echo $trans_exp->totalData ?? 0; 
+                      ?>
+                    </span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+      </div> <!-- /.row -->
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
             <div class="box box-body">
+              <!-- Ads Banner -->
               <?php
               if (isset($_GET['success'])) {
                   if($_GET['success'] == "add"){
@@ -79,19 +171,21 @@ startSession();
                           </div></div>';
                   }
               } ?>
+            <!-- Table List -->
             <div class="box-body">
               <div class="box-body table-responsive no-padding">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
                     <th>No</th>
+                    <th>No. Referensi</th>
                     <th>Warung</th>
                     <th>Nama</th>
-                    <th>Deskripsi</th>
                     <th>Status</th>
                     <th>Pembayaran</th>
                     <th>Iklan Mulai</th>
                     <th>Iklan Berakhir</th>
+                    <th>Nominal</th>
                     <th>Tgl Bayar</th>
                     <th>Metode Pembayaran</th>
                     <th>Dibuat</th>
@@ -107,6 +201,7 @@ startSession();
                     ?>
                   <tr>
                     <td><?=$no; ?></td>
+                    <td><?=$data->id?></td>
                     <td>
                         <?php
                             if (empty($data->warung->name)) {
@@ -117,11 +212,15 @@ startSession();
                         ?>
                     </td>
                     <td><?=$data->name?></td>
-                    <td><?=$data->description?></td>
                     <td><?=adsStatusColorName($data->status)?></td>
                     <td><?=adsPaymentStatus($data->invoice->status)?></td>
                     <td><?=convertDateFormat($data->startDate, "Y-m-d")?></td>
                     <td><?=convertDateFormat($data->startDate, "Y-m-d")?></td>
+                    <td>
+                      <?php 
+                          echo rupiah0($data->invoice->amount);
+                      ?>
+                    </td>
                     <td><?=dateUtcToLocal($data->invoice->paymentDate)?></td>
                     <td>
                       <?php 
@@ -131,7 +230,7 @@ startSession();
                           } 
                       ?>
                     </td>
-                    <td><?=convertDateFormat($data->createdAt)?></td>
+                    <td><?=$data->createdAt?></td>
                     <td align = "center">
                       <a href="#" class="edit_modal btn btn-warning btn-sm" id='<?php echo serialize(['id'=>$data->id, 'name'=>$data->name]); ?>'>
                         <i class="glyphicon glyphicon-pencil"></i>
@@ -143,13 +242,14 @@ startSession();
                   <tfoot>
                   <tr>
                     <th>No</th>
+                    <th>No. Referensi</th>
                     <th>Warung</th>
                     <th>Nama</th>
-                    <th>Deskripsi</th>
                     <th>Status</th>
                     <th>Pembayaran</th>
                     <th>Iklan Mulai</th>
                     <th>Iklan Berakhir</th>
+                    <th>Nominal</th>
                     <th>Tgl Bayar</th>
                     <th>Metode Pembayaran</th>
                     <th>Dibuat</th>
