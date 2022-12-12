@@ -1,6 +1,6 @@
 <?php
 include_once('../helper/import.php');
-$thisPage = "ads";
+$thisPage = "booking";
 startSession();
 ?>
 
