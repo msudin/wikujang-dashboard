@@ -57,6 +57,16 @@
           <i class="fa fa-home"></i> <span>Dashboard</span>
         </a>
       </li>
+      <li <?php if($thisPage == "user") echo "class='active'"; ?>>
+        <a href="user.php">
+          <i class="fa fa-users"></i> <span>User</span>
+        </a>
+      </li>
+      <li <?php if($thisPage == "warung") echo "class='active'"; ?>>
+        <a href="warung.php">
+          <i class="ion ion-cube"></i> <span>Warung</span>
+        </a>
+      </li>
       <li <?php if($thisPage == "category") echo "class='active'"; ?>>
         <a href="category.php">
           <i class="fa fa-archive"></i> <span>Kategori Menu</span>
@@ -67,15 +77,19 @@
           <i class="fa fa-bar-chart-o"></i> <span>Iklan</span>
         </a>
       </li>
-      <li <?php if($thisPage == "user") echo "class='active'"; ?>>
-        <a href="user.php">
-          <i class="fa fa-users"></i> <span>User</span>
+      <li <?php if($thisPage == "booking") echo "class='active'"; ?>>
+        <a href="booking.php">
+          <i class="fa fa-bar-chart-o"></i> <span>Booking</span>
         </a>
       </li>
-      <li <?php if($thisPage == "warung") echo "class='active'"; ?>>
-        <a href="warung.php">
-          <i class="ion ion-cube"></i> <span>Warung</span>
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa fa-bar-chart-o"></i><span> Withdraw</span>
         </a>
+        <ul class="treeview-menu">
+          <li <?php if($thisPage == "all") echo "class='active'"; ?>><a href="#"><i class="glyphicon glyphicon-tag"></i>Semua</a></li>
+          <li <?php if($thisPage == "process") echo "class='active'"; ?>><a href="#"><i class="glyphicon glyphicon-tag"></i>Menunggu Pencairan</a></li>
+        </ul>
       </li>
     </ul>
     </section>

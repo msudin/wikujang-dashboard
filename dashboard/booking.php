@@ -9,7 +9,7 @@ startSession();
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Iklan</title>
+  <title>Booking</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -35,12 +35,12 @@ startSession();
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Iklan
+        Booking
         <small>Preview</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="index.php"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li class="active">Iklan</li>
+        <li class="active">Booking</li>
       </ol>
     </section>
     <!-- Main content -->
@@ -53,10 +53,10 @@ startSession();
                 <span class="info-box-icon bg-green"><i class="ion ion-cash"></i></span>
                 </a>
                 <div class="info-box-content">
-                    <span class="info-box-text">Pendapatan Iklan</i></span>
+                    <span class="info-box-text">Pendapatan Booking</i></span>
                     <span class="info-box-number">
                         <?php 
-                            $trans_paid = getAdsRevenue(NULL, "PAID");
+                            $trans_paid = getBookingRevenue(NULL, "PAID");
                             echo rupiah0($trans_paid->totalAmount); 
                         ?>
                     </span>
@@ -71,9 +71,9 @@ startSession();
                 <span class="info-box-icon bg-orange"><i class="ion ion-android-sync"></i></span>
                 </a>
                 <div class="info-box-content">
-                    <span class="info-box-text">Aktif</i></span>
+                    <span class="info-box-text">Proses</i></span>
                     <span class="info-box-number"> 
-                        <?=count(getAds(NULL, 'active'))?>
+                        <?=count(getBookings(NULL, 'waiting_approval'))?>
                     </span>
                 </div>
                 <!-- /.info-box-content -->
@@ -89,7 +89,7 @@ startSession();
                     <span class="info-box-text">Terbayar</span>
                     <span class="info-box-number">
                       <?php 
-                          $trans_paid = getAdsRevenue(NULL, "PAID");
+                          $trans_paid = getBookingRevenue(NULL, "PAID");
                           echo $trans_paid->totalData ?? 0; 
                       ?>
                     </span>
@@ -108,7 +108,7 @@ startSession();
                     <span class="info-box-text">Belum Bayar</i></span>
                     <span class="info-box-number"> 
                         <?php 
-                          $trans_pending = getAdsRevenue(NULL, "PENDING");
+                          $trans_pending = getBookingRevenue(NULL, "PENDING");
                           echo $trans_pending->totalData ?? 0; 
                       ?>
                     </span>
@@ -126,9 +126,24 @@ startSession();
                     <span class="info-box-text">Expired</span>
                     <span class="info-box-number">
                       <?php 
-                          $trans_exp = getAdsRevenue(NULL, "EXPIRED");
+                          $trans_exp = getBookingRevenue(NULL, "EXPIRED");
                           echo $trans_exp->totalData ?? 0; 
                       ?>
+                    </span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <div class="col-md-4 col-sm-8 col-xs-12">
+            <div class="info-box">
+                <a href="">
+                    <span class="info-box-icon bg-black"><i class="ion ion-close-circled"></i></span>
+                </a>
+                <div class="info-box-content">
+                    <span class="info-box-text">Rejected/Ditolak</span>
+                    <span class="info-box-number">
+                      <?=count(getBookings(NULL, 'rejected'))?>
                     </span>
                 </div>
                 <!-- /.info-box-content -->
@@ -179,48 +194,37 @@ startSession();
                   <tr>
                     <th>No</th>
                     <th>No. Referensi</th>
+                    <th>User</th>
                     <th>Warung</th>
-                    <th>Nama</th>
+                    <th>DP</th>
+                    <th>Services Fee</th>
+                    <th>Admin Fee</th>
                     <th>Status</th>
                     <th>Pembayaran</th>
-                    <th>Iklan Mulai</th>
-                    <th>Iklan Berakhir</th>
-                    <th>Nominal</th>
                     <th>Tgl Bayar</th>
                     <th>Metode Pembayaran</th>
                     <th>Dibuat</th>
-                    <th class="text-center">Aksi</th>
+                    <!-- <th class="text-center">Aksi</th> -->
                   </tr>
                   </thead>
                   <tbody>
                     <?php
                     $no = 0; 
-                    $dataList = getAds();
+                    $dataList = getBookings();
                     foreach($dataList as $data) {
                       $no++; 
                     ?>
                   <tr>
                     <td><?=$no; ?></td>
                     <td><?=$data->id?></td>
-                    <td>
-                        <?php
-                            if (empty($data->warung->name)) {
-                                echo "Administrator";
-                            } else {
-                                echo $data->warung->name;
-                            }
-                        ?>
+                    <td><?=$data->user->fullName?></td>
+                    <td><?php echo $data->warung->name; ?>
                     </td>
-                    <td><?=$data->name?></td>
-                    <td><?=adsStatusColorName($data->status)?></td>
-                    <td><?=adsPaymentStatus($data->invoice->status)?></td>
-                    <td><?=convertDateFormat($data->startDate, "Y-m-d")?></td>
-                    <td><?=convertDateFormat($data->startDate, "Y-m-d")?></td>
-                    <td>
-                      <?php 
-                          echo rupiah0($data->invoice->amount);
-                      ?>
-                    </td>
+                    <td><?=rupiah0($data->dpAmount)?></td>
+                    <td><?=rupiah0($data->invoice->fees)?></td>
+                    <td><?=rupiah0($data->invoice->amount)?></td>
+                    <td><?=bookingStatusColorName($data->status)?></td>
+                    <td><?=bookingPaymentColorName($data->invoice->status)?></td>
                     <td><?=dateUtcToLocal($data->invoice->paymentDate, "Y-m-d H:i:s")?></td>
                     <td>
                       <?php 
@@ -231,11 +235,11 @@ startSession();
                       ?>
                     </td>
                     <td><?=$data->createdAt?></td>
-                    <td align = "center">
+                    <!-- <td align = "center">
                       <a href="#" class="edit_modal btn btn-warning btn-sm" id='<?php echo serialize(['id'=>$data->id, 'name'=>$data->name]); ?>'>
                         <i class="glyphicon glyphicon-pencil"></i>
                       </a>
-                    </td>
+                    </td> -->
                   </tr>
                   <?php } ?>
                   </tbody>
@@ -247,13 +251,10 @@ startSession();
                     <th>Nama</th>
                     <th>Status</th>
                     <th>Pembayaran</th>
-                    <th>Iklan Mulai</th>
-                    <th>Iklan Berakhir</th>
-                    <th>Nominal</th>
                     <th>Tgl Bayar</th>
                     <th>Metode Pembayaran</th>
                     <th>Dibuat</th>
-                    <th class="text-center">Aksi</th>
+                    <!-- <th class="text-center">Aksi</th> -->
                   </tr>
                   </tfoot>
                 </table>
