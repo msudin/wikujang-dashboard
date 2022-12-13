@@ -84,7 +84,7 @@ startSession();
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>No.</th>
+                    <th width="5%">No.</th>
                     <th>ID</th>
                     <th>Nama</th>
                     <th>Status</th>
@@ -95,7 +95,7 @@ startSession();
                   <tbody>
                   <?php
                     $no = 0;
-                    $listUser = getListUser(5);
+                    $listUser = getListUser();
                     foreach($listUser as $data) { $no++;
                   ?>
                   <tr>

@@ -84,7 +84,7 @@ startSession();
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>No.</th>
+                    <th width="5%">No.</th>
                     <th>ID</th>
                     <th>Nama</th>
                     <th>Status</th>

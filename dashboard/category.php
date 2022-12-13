@@ -88,10 +88,10 @@ startSession();
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th width="10%">No</th>
-                    <th width="20%">ID</th>
-                    <th width="60%">Nama</th>
-                    <th width="10%" class="text-center">Aksi</th>
+                    <th width="5%">No</th>
+                    <th width="15%">ID</th>
+                    <th>Nama</th>
+                    <th  width="10%" class="text-center">Aksi</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -118,10 +118,10 @@ startSession();
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th width="10%">No</th>
-                    <th width="20%">ID</th>
-                    <th width="60%">Nama</th>
-                    <th class="text-center" width="10%">Aksi</th>
+                    <th>No</th>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th class="text-center">Aksi</th>
                   </tr>
                   </tfoot>
                 </table>

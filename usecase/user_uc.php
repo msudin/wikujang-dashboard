@@ -18,7 +18,7 @@ function getListUser($limit = 0) {
         $limitData = (int)$limit;
         $sqlAllUser = "SELECT * FROM `user` WHERE deleted_at = '' ORDER BY `created_at` DESC LIMIT $limitData";
     } else {
-        $sqlAllUser = "SELECT * FROM `user` WHERE deleted_at = '' ORDER BY `created_at` DESC";
+        $sqlAllUser = "SELECT * FROM `user` WHERE deleted_at = '' ORDER BY `fullname` ASC";
     }
 
     $result = $conn->query($sqlAllUser);
