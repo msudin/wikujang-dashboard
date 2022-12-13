@@ -12,4 +12,5 @@ include_once('../usecase/ads_uc.php');
 include_once('../usecase/curl_api.php');
 include_once('../usecase/category_uc.php');
 include_once('../usecase/booking_uc.php');
+include_once('../usecase/withdraw_uc.php');
 ?>

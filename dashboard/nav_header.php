@@ -87,8 +87,8 @@
           <i class="fa fa fa-bar-chart-o"></i><span> Withdraw</span>
         </a>
         <ul class="treeview-menu">
-          <li <?php if($thisPage == "all") echo "class='active'"; ?>><a href="#"><i class="glyphicon glyphicon-tag"></i>Semua</a></li>
-          <li <?php if($thisPage == "process") echo "class='active'"; ?>><a href="#"><i class="glyphicon glyphicon-tag"></i>Menunggu Pencairan</a></li>
+          <li <?php if($thisPage == "withdraw_history") echo "class='active'"; ?>><a href="withdraw_history.php"><i class="glyphicon glyphicon-tag"></i>Riwayat</a></li>
+          <li <?php if($thisPage == "withdraw_process") echo "class='active'"; ?>><a href="withdraw_process.php"><i class="glyphicon glyphicon-tag"></i>Menunggu Pencairan</a></li>
         </ul>
       </li>
     </ul>

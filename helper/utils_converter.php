@@ -85,4 +85,27 @@ function bookingStatusColorName($status) {
     }
 }
 
+function withdrawTypeColorName($status) {
+    if ($status == "dp_paid") {
+        return '<span class="label label-success">Booking</span>';
+    } else if ($status == "withdraw") {
+        return '<span class="label label-success">Withdraw</span>';
+    } else if ($status == "refund") { 
+        return '<span class="label label-danger">Refund</span>';
+    } else {
+        return '<span class="label label-default">Undefined Status</span>';
+    }
+}
+
+function withdrawStatusColorName($status) {
+    if ($status == "") { 
+        return '<span class="label label-primary">Menunggu Pencairan</span>'; 
+    } else if ($status == "transfered") { 
+        return '<span class="label label-success">Ditransfer</span>';
+    } else if ($status == "refund") { 
+        return '<span class="label label-success">Dana Dikembalikan</span>';
+    } else {
+        return '<span class="label label-default">-</span>';
+    }
+}
 ?>
