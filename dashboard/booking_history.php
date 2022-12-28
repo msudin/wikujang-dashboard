@@ -1,6 +1,6 @@
 <?php
 include_once('../helper/import.php');
-$thisPage = "booking";
+$thisPage = "booking_history";
 startSession();
 ?>
 
@@ -35,12 +35,13 @@ startSession();
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        Booking
+        Riwayat
         <small>Preview</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="index.php"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li class="active">Booking</li>
+        <li>Booking</li>
+        <li class="active">Riwayat</li>
       </ol>
     </section>
     <!-- Main content -->

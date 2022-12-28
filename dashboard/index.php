@@ -354,7 +354,7 @@ function loadBody() {
                             </div>
                         </div>
                         <div class="box-footer clearfix">
-                            <a href="booking.php" class="btn btn-sm btn-info btn-flat pull-left">Lihat Semua</a>
+                            <a href="booking_history.php" class="btn btn-sm btn-info btn-flat pull-left">Lihat Semua</a>
                         </div>
                     </div>
                 </div>

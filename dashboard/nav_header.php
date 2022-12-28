@@ -77,10 +77,14 @@
           <i class="fa fa-bar-chart-o"></i> <span>Iklan</span>
         </a>
       </li>
-      <li <?php if($thisPage == "booking") echo "class='active'"; ?>>
-        <a href="booking.php">
+      <li class="treeview">
+        <a href="#">
           <i class="fa fa-bar-chart-o"></i> <span>Booking</span>
         </a>
+        <ul class="treeview-menu">
+          <li <?php if($thisPage == "booking_history") echo "class='active'"; ?>><a href="booking_history.php"><i class="glyphicon glyphicon-tag"></i>Riwayat</a></li>
+          <li <?php if($thisPage == "booking_report") echo "class='active'"; ?>><a href="booking_report.php"><i class="glyphicon glyphicon-tag"></i>Rekap</a></li>
+        </ul>
       </li>
       <li class="treeview">
         <a href="#">
