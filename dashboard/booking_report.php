@@ -1,6 +1,6 @@
 <?php
 include_once('../helper/import.php');
-$thisPage = "booking_history";
+$thisPage = "booking_report";
 startSession();
 
 
@@ -82,6 +82,7 @@ if(isset($_GET['month'])){
                                                   name="month" required>
                                                   <option value="<?php echo $selected_month; ?>">
                                                       <?php echo $bulan[$selected_month];?></option>
+                                                  <option value="00">Semua</option>
                                                   <option value="01">Januari</option>
                                                   <option value="02">Februari</option>
                                                   <option value="03">Maret</option>
@@ -182,8 +183,14 @@ if(isset($_GET['month'])){
                   </thead>
                   <tbody>
                     <?php
+                    $paramBooking = $selected_year;
+                    if ($selected_month != '00') {
+                      $paramBooking = $paramBooking.'-'.$selected_month;
+                    }
+
+                    $dataList = getBookingSummary($paramBooking);
+
                     $no = 0; 
-                    $dataList = getBookingSummary($selected_year.'-'.$selected_month);
                     foreach($dataList as $data) {
                       $no++; 
                     ?>
